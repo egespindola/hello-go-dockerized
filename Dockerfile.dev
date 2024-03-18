@@ -1,0 +1,23 @@
+# BUILD STAGE
+FROM golang:latest AS build-stage
+ 
+WORKDIR /usr/src/app
+    
+COPY hello-world.go .
+
+ENV GO111MODULE=off
+
+RUN go build hello-world.go
+
+# FINAL STAGE
+FROM ubuntu:latest
+
+WORKDIR /usr/src/app
+
+COPY --from=build-stage /usr/src/app/hello-world .
+
+ENTRYPOINT ["./hello-world"]
+
+
+
+

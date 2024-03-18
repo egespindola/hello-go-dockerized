@@ -1,0 +1,24 @@
+# BUILD STAGE
+FROM golang:latest AS build-stage
+ 
+WORKDIR /usr/src/app
+    
+COPY hello-world.go .
+
+ENV GO111MODULE=off
+
+RUN go build hello-world.go
+
+# FINAL STAGE
+FROM alpine:latest
+
+WORKDIR /usr/src/app
+
+COPY --from=build-stage /usr/src/app/ .
+
+ENTRYPOINT ["./hello-world"]
+
+
+
+
+
