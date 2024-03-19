@@ -10,7 +10,7 @@ ENV GO111MODULE=off
 RUN go build hello-world.go
 
 # FINAL STAGE
-FROM alpine:latest
+FROM scratch
 
 WORKDIR /usr/src/app
 
